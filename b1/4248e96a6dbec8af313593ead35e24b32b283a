@@ -1,0 +1,21 @@
+biome.json
+  s_d2b1720b9e6c65::t_0cc03b4d99c1c5 1-27
+pnpm-lock.yaml
+  s_d2b1720b9e6c65::t_7c0d90f15354c7 1-1555
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b14248e96a6dbec8af313593ead35e24b32b283a",
+  "prompts": {},
+  "sessions": {
+    "s_d2b1720b9e6c65": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f17bb4500ffeQLErwn08IVN81x",
+        "model": "@cf/zai-org/glm-5.3"
+      },
+      "human_author": "mvm <vance@cloudflare.com>"
+    }
+  }
+}
