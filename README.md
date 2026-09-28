@@ -32,7 +32,7 @@ open scrolls.rayext
 
 Raycast prompts you to install. Then finish setup in **Raycast Settings → Extensions**, search for **Scrolls**:
 
-- **Alias** — optional short name for root search (the command already answers to `scrolls`, `n`, and `notes`)
+- **Alias** — recommended: set a short one (e.g. `n`) to surface the command as the top result in root search. Without an alias, search for `Scrolls` and hit Enter.
 - **Notes Directory** — where your notes live (default: `~/Documents/notes`)
 
 Alternatively, run Raycast's **Import Extension** command on the cloned folder, then `pnpm dev` once and stop it (⌃C) — the extension stays installed. Keep `pnpm dev` running while hacking on the code for hot reloading.
