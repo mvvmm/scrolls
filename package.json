@@ -48,6 +48,7 @@
   },
   "scripts": {
     "build": "ray build",
+    "bundle": "ray bundle",
     "dev": "ray develop",
     "lint": "biome check .",
     "fix-lint": "biome check --write .",

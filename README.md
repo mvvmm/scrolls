@@ -16,18 +16,22 @@ Raycast extension that turns a folder of notes into a searchable launcher.
 
 ## Install
 
-Requires [Raycast](https://www.raycast.com), Node LTS, and pnpm (`npm i -g pnpm`).
+Requires [Raycast](https://www.raycast.com), [Node LTS](https://nodejs.org), and [pnpm](https://pnpm.io).
+
+Clone this repo, then:
 
 ```bash
-git clone https://github.com/mvvmm/scrolls.git
-cd scrolls
 pnpm install
-pnpm dev
+pnpm bundle
+open scrolls.rayext
 ```
 
-Raycast opens with the extension running in development mode — keep the terminal open while you use it. For a permanent install, run `pnpm build`, then run Raycast's **Import Extension** command and select this folder.
+Raycast prompts you to install. Then finish setup in **Raycast Settings → Extensions**, search for **Scrolls**:
 
-Point it at your notes under **Raycast Settings → Extensions → Scrolls → Notes Directory** (default: `~/Documents/notes`).
+- **Alias** — optional short name for root search (the command already answers to `scrolls`, `n`, and `notes`)
+- **Notes Directory** — where your notes live (default: `~/Documents/notes`)
+
+Alternatively, run Raycast's **Import Extension** command on the cloned folder, then `pnpm dev` once and stop it (⌃C) — the extension stays installed. Keep `pnpm dev` running while hacking on the code for hot reloading.
 
 ## Usage
 
