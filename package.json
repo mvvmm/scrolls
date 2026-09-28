@@ -1,0 +1,57 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "scrolls",
+  "title": "Scrolls",
+  "description": "Search, browse, and create notes in your notes directory",
+  "icon": "extension-icon.png",
+  "author": "vance_morrison",
+  "platforms": [
+    "macOS"
+  ],
+  "categories": [
+    "Productivity"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@12.6.0",
+  "commands": [
+    {
+      "name": "scrolls",
+      "title": "Scrolls",
+      "description": "Search, browse, and create notes in your notes directory",
+      "mode": "view",
+      "keywords": [
+        "scrolls",
+        "n",
+        "notes"
+      ]
+    }
+  ],
+  "preferences": [
+    {
+      "name": "notesDirectory",
+      "type": "textfield",
+      "title": "Notes Directory",
+      "description": "Folder where your notes live (defaults to ~/Documents/notes)",
+      "required": false,
+      "default": "~/Documents/notes"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^2.5.3",
+    "@raycast/utils": "^2.3.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.14",
+    "@types/node": "22.19.17",
+    "@types/react": "19.0.10",
+    "typescript": "^7.0.2"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "lint": "biome check .",
+    "fix-lint": "biome check --write .",
+    "prepublishOnly": "echo \"\\n\\nIt seems like you are trying to publish the Raycast extension to npm.\\n\\nIf you did intend to publish it to npm, remove the \\`prepublishOnly\\` script and rerun \\`npm publish\\` again.\\nIf you wanted to publish it to the Raycast Store instead, use \\`npm run publish\\` instead.\\n\\n\" && exit 1",
+    "publish": "npx @raycast/api@latest publish"
+  }
+}
