@@ -1,8 +1,12 @@
 # Scrolls
 
+<img src="assets/extension-icon.png" width="72" align="right" alt="Scrolls icon" />
+
 > A scroll is a spell you _cast_ (RAY-cast), a paper covered in _notes_, and the thing you do to a long list (of notes). Get it? ...You get it.
 
 Raycast extension that turns a folder of notes into a searchable launcher.
+
+![Scrolls in Raycast](assets/screenshot.png)
 
 ## What it does
 
