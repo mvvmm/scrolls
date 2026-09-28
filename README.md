@@ -25,11 +25,19 @@ Requires [Raycast](https://www.raycast.com), [Node LTS](https://nodejs.org), and
 Clone this repo, then:
 
 ```bash
+# One-time setup
 pnpm install
+```
+
+In Raycast, run **Import Extension** and select the cloned `scrolls` directory. This import is also a one-time setup; the extension stays installed when you stop `pnpm dev` with `Ctrl-C`.
+
+When you want to develop the extension with hot reloading, run:
+
+```bash
 pnpm dev
 ```
 
-In Raycast, run **Import Extension** and select the cloned `scrolls` directory if it isn't already visible. The extension stays installed when you stop `pnpm dev` with `Ctrl-C`; keep `pnpm dev` running while hacking for hot reloading.
+Keep that command running while hacking, and stop it with `Ctrl-C` when you're done.
 
 Then finish setup in **Raycast Settings → Extensions**, search for **Scrolls**:
 
