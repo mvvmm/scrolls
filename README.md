@@ -26,16 +26,15 @@ Clone this repo, then:
 
 ```bash
 pnpm install
-pnpm bundle
-open scrolls.rayext
+pnpm dev
 ```
 
-Raycast prompts you to install. Then finish setup in **Raycast Settings → Extensions**, search for **Scrolls**:
+In Raycast, run **Import Extension** and select the cloned `scrolls` directory if it isn't already visible. The extension stays installed when you stop `pnpm dev` with `Ctrl-C`; keep `pnpm dev` running while hacking for hot reloading.
+
+Then finish setup in **Raycast Settings → Extensions**, search for **Scrolls**:
 
 - **Alias** — recommended: set a short one (e.g. `n`) to surface the command as the top result in root search. Without an alias, search for `Scrolls` and hit Enter.
 - **Notes Directory** — where your notes live (default: `~/Documents/notes`)
-
-Alternatively, run Raycast's **Import Extension** command on the cloned folder, then `pnpm dev` once and stop it (⌃C) — the extension stays installed. Keep `pnpm dev` running while hacking on the code for hot reloading.
 
 ## Usage
 
