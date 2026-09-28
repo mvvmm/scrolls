@@ -1,5 +1,6 @@
 import {
   existsSync,
+  mkdirSync,
   readdirSync,
   readFileSync,
   statSync,
@@ -402,6 +403,7 @@ async function createNote(name: string, onRefresh: () => void) {
   }
 
   try {
+    mkdirSync(NOTES_DIRECTORY, { recursive: true });
     writeFileSync(filePath, "", "utf-8");
     await open(filePath, "TextEdit");
     onRefresh();

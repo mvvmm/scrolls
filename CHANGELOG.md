@@ -1,5 +1,9 @@
 # Scrolls Changelog
 
+## [0.1.1] - 2026-09-28
+
+- Auto-create the notes directory when creating a note.
+
 ## [0.1.0] - 2026-09-28
 
 - Search and browse notes in a configurable notes directory, sorted by most recently opened
