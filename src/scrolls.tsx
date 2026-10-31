@@ -530,6 +530,11 @@ export default function Command() {
                     setSearchText("");
                   }}
                 />
+                <Action.Open
+                  title="Open Directory"
+                  target={selectedFolder.path}
+                  shortcut={Keyboard.Shortcut.Common.Open}
+                />
                 <Action
                   title="New Note"
                   icon={Icon.NewDocument}
