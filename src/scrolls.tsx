@@ -241,7 +241,9 @@ function NoteActions({
   note,
   searchText,
   onRefresh,
+  directory = NOTES_DIRECTORY,
 }: {
+  directory?: string;
   note: NoteFile;
   searchText: string;
   onRefresh: () => void;
@@ -295,11 +297,11 @@ function NoteActions({
           title="New Note"
           icon={Icon.NewDocument}
           shortcut={Keyboard.Shortcut.Common.New}
-          onAction={() => createNote(searchText, onRefresh)}
+          onAction={() => createNote(searchText, onRefresh, directory)}
         />
         <Action.Open
           title="Open Directory"
-          target={NOTES_DIRECTORY}
+          target={directory}
           shortcut={Keyboard.Shortcut.Common.Open}
         />
       </ActionPanel.Section>
@@ -381,7 +383,11 @@ function FolderActions({
   );
 }
 
-async function createNote(name: string, onRefresh: () => void) {
+async function createNote(
+  name: string,
+  onRefresh: () => void,
+  directory = NOTES_DIRECTORY,
+) {
   const trimmed = name.trim();
   if (!trimmed) {
     await showToast({
@@ -392,7 +398,7 @@ async function createNote(name: string, onRefresh: () => void) {
   }
 
   const filename = trimmed.endsWith(".txt") ? trimmed : `${trimmed}.txt`;
-  const filePath = resolve(NOTES_DIRECTORY, filename);
+  const filePath = resolve(directory, filename);
 
   if (existsSync(filePath)) {
     await showToast({
@@ -403,7 +409,7 @@ async function createNote(name: string, onRefresh: () => void) {
   }
 
   try {
-    mkdirSync(NOTES_DIRECTORY, { recursive: true });
+    mkdirSync(directory, { recursive: true });
     writeFileSync(filePath, "", "utf-8");
     await open(filePath, "TextEdit");
     onRefresh();
@@ -420,6 +426,50 @@ async function createNote(name: string, onRefresh: () => void) {
       title: "Failed to create note",
     });
   }
+}
+
+function CreateNoteItem({
+  searchText,
+  directory,
+  onRefresh,
+}: {
+  searchText: string;
+  directory: string;
+  onRefresh: () => void;
+}) {
+  const filename = searchText.trim().endsWith(".txt")
+    ? searchText.trim()
+    : `${searchText.trim()}.txt`;
+  if (!searchText.trim() || existsSync(resolve(directory, filename)))
+    return null;
+
+  return (
+    <List.Item
+      key="__create__"
+      title={`Create "${searchText.trim()}"`}
+      icon={Icon.NewDocument}
+      detail={
+        <List.Item.Detail
+          markdown={`Press **Enter** to create a new note named **${filename}**`}
+        />
+      }
+      actions={
+        <ActionPanel>
+          <Action
+            title="Create Note"
+            icon={Icon.NewDocument}
+            shortcut={Keyboard.Shortcut.Common.New}
+            onAction={() => createNote(searchText, onRefresh, directory)}
+          />
+          <Action.Open
+            title="Open Directory"
+            target={directory}
+            shortcut={Keyboard.Shortcut.Common.Open}
+          />
+        </ActionPanel>
+      }
+    />
+  );
 }
 
 export default function Command() {
@@ -456,7 +506,7 @@ export default function Command() {
 
     return (
       <List
-        searchBarPlaceholder="Filter notes..."
+        searchBarPlaceholder="Filter or create notes..."
         searchText={searchText}
         isShowingDetail
         filtering={false}
@@ -480,6 +530,14 @@ export default function Command() {
                     setSearchText("");
                   }}
                 />
+                <Action
+                  title="New Note"
+                  icon={Icon.NewDocument}
+                  shortcut={Keyboard.Shortcut.Common.New}
+                  onAction={() =>
+                    createNote(searchText, refresh, selectedFolder.path)
+                  }
+                />
               </ActionPanel>
             }
           />
@@ -492,6 +550,7 @@ export default function Command() {
               actions={
                 <NoteActions
                   note={note}
+                  directory={selectedFolder.path}
                   searchText={searchText}
                   onRefresh={refresh}
                 />
@@ -499,6 +558,11 @@ export default function Command() {
             />
           ))}
         </List.Section>
+        <CreateNoteItem
+          searchText={searchText}
+          directory={selectedFolder.path}
+          onRefresh={refresh}
+        />
       </List>
     );
   }
@@ -507,12 +571,6 @@ export default function Command() {
   const visible = entries.filter((e) =>
     e.name.toLowerCase().includes(searchText.toLowerCase()),
   );
-
-  const allFiles = entries.filter((e): e is NoteFile => e.kind === "file");
-  const hasExactMatch = allFiles.some(
-    (note) => note.name.toLowerCase() === searchText.trim().toLowerCase(),
-  );
-  const showCreateItem = searchText.trim().length > 0 && !hasExactMatch;
 
   return (
     <List
@@ -558,32 +616,11 @@ export default function Command() {
           ),
         )}
       </List.Section>
-      {showCreateItem && (
-        <List.Item
-          key="__create__"
-          title={`Create "${searchText.trim()}"`}
-          icon={Icon.NewDocument}
-          detail={
-            <List.Item.Detail
-              markdown={`Press **Enter** to create a new note named **${searchText.trim()}.txt**`}
-            />
-          }
-          actions={
-            <ActionPanel>
-              <Action
-                title="Create Note"
-                icon={Icon.NewDocument}
-                onAction={() => createNote(searchText, refresh)}
-              />
-              <Action.Open
-                title="Open Directory"
-                target={NOTES_DIRECTORY}
-                shortcut={Keyboard.Shortcut.Common.Open}
-              />
-            </ActionPanel>
-          }
-        />
-      )}
+      <CreateNoteItem
+        searchText={searchText}
+        directory={NOTES_DIRECTORY}
+        onRefresh={refresh}
+      />
     </List>
   );
 }
